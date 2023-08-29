@@ -22,7 +22,7 @@ const filterGroupWorks = computed(() => {
 <template>
   <div class="w-full min-h-screen">
     <!-- Header -->
-    <div class="w-full flex p-3" :class="{'dark-mode' : toggleDark}">
+    <div class="w-full flex p-3" :class="[toggleDark ? 'dark-mode' : 'light-mode']">
       <!-- left panel -->
       <div class="w-1/2">
         <div class="flex flex-row space-x-2">
@@ -53,7 +53,7 @@ const filterGroupWorks = computed(() => {
     <!-- body -->
     <div class="w-full">
       <!-- table heading -->
-      <div class="p-5 grid grid-cols-7 text-md font-semibold " :class="{'dark-mode' : toggleDark}">
+      <div class="p-5 grid grid-cols-7 text-md font-semibold " :class="[toggleDark ? 'dark-mode' : 'light-mode']">
         <h3>Section</h3>
         <h3>Group Name</h3>
         <h3 class="col-span-3">GitHub Repository</h3>
@@ -62,9 +62,10 @@ const filterGroupWorks = computed(() => {
       <!-- table body -->
       <div class="p-5 grid grid-cols-7 text-xs" v-for="(group, index) in filterGroupWorks" :key="index"
       :class="[
-    index % 2 === 0 ? 'bg-gray-100' : 'bg-white',
-    toggleDark && index % 2 === 0 ? 'dark-row' : '',
-    toggleDark && index % 2 !== 0 ? 'darker-row' : ''
+    !toggleDark && index % 2 === 0 ? 'light-row' : '',
+    !toggleDark && index % 2 !== 0 ? 'lighter-row' : '',
+    toggleDark && index % 2 === 0 ? 'darker-row' : '',
+    toggleDark && index % 2 !== 0 ? 'dark-row' : ''
   ]">
         <p>{{ group.section }}</p>
         <p>{{ group.projectName }}</p>
@@ -76,7 +77,7 @@ const filterGroupWorks = computed(() => {
         </div>
       </div>
     </div>
-    <div class="flex flex-col gap-4 justify-center items-center " :class="{'dark-mode' : toggleDark}">
+    <div class="flex flex-col gap-4 justify-center items-center " :class="[toggleDark ? 'dark-mode' : 'light-mode']">
       <h1 class="mt-6 self-center font-bold text-2xl ">Adding a New Groupwork</h1>
       <div class="flex justify-between">
         <h3 class="mr-3">Section: </h3>
@@ -171,14 +172,9 @@ const filterGroupWorks = computed(() => {
   transition: transform 0.2s linear, background-color 0.2s linear, color 0.2s linear;
 }
 
-.light-mode {
-  background-color: white;
-  color: black;
-  transition: transform 0.2s linear, background-color 0.2s linear, color 0.2s linear;
-}
 
 /* Darker background color for odd rows in dark mode */
-.dark-row {
+.darker-row {
   background-color: #333;
   color: white;
   transition: transform 0.2s linear, background-color 0.2s linear, color 0.2s linear;
@@ -187,9 +183,28 @@ const filterGroupWorks = computed(() => {
 
 
 /* Lighter background color for even rows in dark mode */
-.darker-row {
+.dark-row {
   background-color: #444;
   color: white;
+  transition: transform 0.2s linear, background-color 0.2s linear, color 0.2s linear;
+}
+
+.light-mode {
+  background-color: white;
+  color: black;
+  transition: transform 0.2s linear, background-color 0.2s linear, color 0.2s linear;
+}
+
+
+.light-row{
+  background-color: rgba(128, 128, 128, 0.203);
+  color: black;
+  transition: transform 0.2s linear, background-color 0.2s linear, color 0.2s linear;
+}
+
+.lighter-row{
+  background-color: white ;
+  color: black;
   transition: transform 0.2s linear, background-color 0.2s linear, color 0.2s linear;
 }
 </style>
